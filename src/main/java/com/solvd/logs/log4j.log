@@ -1,0 +1,43 @@
+[INFO ] 2022-12-12 19:10:04.180 [main] Runner - Test
+[ERROR] 2022-12-12 19:10:04.182 [main] Runner - Error
+[WARN ] 2022-12-12 19:10:04.182 [main] Runner - Warn
+[INFO ] 2022-12-12 19:36:42.960 [main] Runner - Test
+[ERROR] 2022-12-12 19:36:42.962 [main] Runner - Error
+[WARN ] 2022-12-12 19:36:42.962 [main] Runner - Warn
+[INFO ] 2022-12-12 19:36:46.372 [main] Runner - Basic bank operations: 
+[INFO ] 2022-12-12 19:36:46.374 [main] Runner - Deposit: A deposit is when you add money to your account.
+[INFO ] 2022-12-12 19:36:46.374 [main] Runner - Withdrawal: A withdrawal is when you take money out of your account.
+[INFO ] 2022-12-12 19:36:46.374 [main] Runner - Transfer: A transfer is when you move money from one account to another.
+[INFO ] 2022-12-12 19:45:58.603 [main] Runner - Test
+[ERROR] 2022-12-12 19:45:58.604 [main] Runner - Error
+[WARN ] 2022-12-12 19:45:58.604 [main] Runner - Warn
+[INFO ] 2022-12-12 19:46:01.512 [main] Runner - Basic bank operations: 
+[INFO ] 2022-12-12 19:46:01.513 [main] Runner - Deposit: A deposit is when you add money to your account.
+[INFO ] 2022-12-12 19:46:01.513 [main] Runner - Withdrawal: A withdrawal is when you take money out of your account.
+[INFO ] 2022-12-12 19:46:01.513 [main] Runner - Transfer: A transfer is when you move money from one account to another.
+[INFO ] 2022-12-12 19:46:04.470 [main] Runner - ID: 1, Phone: 1231231231, Name: John Florence, Account Type: CHECKING
+[INFO ] 2022-12-12 19:46:04.470 [main] Runner - ID: 2, Phone: 1234567899, Name: Richard Rodriguez, Account Type: CHECKING
+[INFO ] 2022-12-12 19:46:04.470 [main] Runner - ID: 3, Phone: 1234567899, Name: Mark Zucke, Account Type: CHECKING
+[WARN ] 2022-12-12 19:46:10.733 [main] Runner - One of the details is incorrect
+[WARN ] 2022-12-12 19:46:16.877 [main] Runner - Phone number must be 10 digits.
+[INFO ] 2022-12-12 19:50:55.021 [main] Runner - Test
+[ERROR] 2022-12-12 19:50:55.022 [main] Runner - Error
+[WARN ] 2022-12-12 19:50:55.022 [main] Runner - Warn
+[INFO ] 2022-12-12 20:08:22.765 [main] Runner - Test
+[ERROR] 2022-12-12 20:08:22.769 [main] Runner - Error
+[WARN ] 2022-12-12 20:08:22.770 [main] Runner - Warn
+[INFO ] 2022-12-12 20:08:38.462 [main] Runner - Test
+[ERROR] 2022-12-12 20:08:38.463 [main] Runner - Error
+[WARN ] 2022-12-12 20:08:38.463 [main] Runner - Warn
+[INFO ] 2022-12-12 20:24:15.887 [main] Runner - Test
+[ERROR] 2022-12-12 20:24:15.889 [main] Runner - Error
+[WARN ] 2022-12-12 20:24:15.889 [main] Runner - Warn
+[INFO ] 2022-12-12 20:24:18.932 [main] Runner - ID: 1, Phone: 1231231231, Name: John Florence, Account Type: CHECKING
+[INFO ] 2022-12-12 20:24:18.933 [main] Runner - 3
+[INFO ] 2022-12-12 20:24:18.933 [main] Runner - ID: 2, Phone: 1234567899, Name: Richard Rodriguez, Account Type: CHECKING
+[INFO ] 2022-12-12 20:24:18.933 [main] Runner - 3
+[INFO ] 2022-12-12 20:24:18.933 [main] Runner - ID: 3, Phone: 1234567899, Name: Mark Zucke, Account Type: CHECKING
+[INFO ] 2022-12-12 20:24:18.933 [main] Runner - 3
+[INFO ] 2022-12-12 20:35:21.871 [main] Runner - Test
+[ERROR] 2022-12-12 20:35:21.873 [main] Runner - Error
+[WARN ] 2022-12-12 20:35:21.873 [main] Runner - Warn
