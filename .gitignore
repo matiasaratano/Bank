@@ -5,3 +5,6 @@ target/*
 logs/*
 /logs/
 *logs
+*.log
+*/logs
+.logs/*
