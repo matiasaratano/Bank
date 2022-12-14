@@ -8,14 +8,14 @@ import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.persons.Client;
 
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.Logger;
+import org.apache.logging.log4j.Logger;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
 public class Runner {
-    private static final Logger LOGGER = (Logger) LogManager.getLogger(Runner.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
     public static void main(String[] args) {
         LOGGER.info("Test");

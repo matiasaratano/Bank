@@ -13,3 +13,9 @@ Balance is now: 32
 Last name: Florence
 Balance: 0
 ID: 1
+[INFO ] 2022-12-14 12:52:19.226 [main] Runner - Test
+[ERROR] 2022-12-14 12:52:19.231 [main] Runner - Error
+[WARN ] 2022-12-14 12:52:19.231 [main] Runner - Warn
+[INFO ] 2022-12-14 12:52:22.541 [main] Runner - Test
+[ERROR] 2022-12-14 12:52:22.544 [main] Runner - Error
+[WARN ] 2022-12-14 12:52:22.545 [main] Runner - Warn

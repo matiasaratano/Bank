@@ -21,7 +21,7 @@ public class Bank implements IPrintBasicOperations {
     private ArrayList<Account> accounts;
     private Scanner scanner;
 
-    private static final Logger LOGGER = LogManager.getLogger(Runner.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(Bank.class);
 
     public Bank(String name, Address address) {
         this.name = name;
