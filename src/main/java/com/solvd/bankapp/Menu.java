@@ -2,10 +2,15 @@ package com.solvd.bankapp;
 
 
 import com.solvd.bankapp.interfaces.IAccTypeMenu;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Menu {
+
+    private static final Logger LOGGER = LogManager.getLogger(Menu.class);
+
     public static void printMenu() {
-        System.out.println("Hello, press: " + "\n" +
+        LOGGER.info("Hello, press: " + "\n" +
                 "\r" + "1.Register" + "\n" +
                 "\r" + "2.Log in" + "\n" +
                 "\r" + "3.List Accounts Registered" + "\n" +
@@ -14,7 +19,7 @@ public class Menu {
     }
 
     public static void existAccountMenu() {
-        System.out.println("What would you like to do?" + "\n" +
+        LOGGER.info("What would you like to do?" + "\n" +
                 "\r" + "1.Info" + "\n" +
                 "\r" + "2.Deposit money" + "\n" +
                 "\r" + "3.Withdrawal money" + "\n" +

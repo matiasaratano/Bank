@@ -31,7 +31,6 @@ public class Bank implements IPrintBasicOperations {
 
     }
 
-
     public Account lookupAccount(int accountID, String phoneNumber) throws IncorrectDetailException {
         for (Account account : accounts) {
             if (account.getID() == accountID && account.getPhoneNumber().equals(phoneNumber)) {
@@ -69,11 +68,11 @@ public class Bank implements IPrintBasicOperations {
 
     public void registerAccount() throws IncorrectNumberException {
         try {
-            System.out.println("First name?");
+            LOGGER.info("First name?");
             String firstName = scanner.next();
-            System.out.println("Last name?");
+            LOGGER.info("Last name?");
             String lastName = scanner.next();
-            System.out.println("Phone number?");
+            LOGGER.info("Phone number?");
             String phoneNumber = scanner.next();
             if (isPhoneNumberCorrect(phoneNumber)) {
                 boolean exitRequested = false;
@@ -111,9 +110,9 @@ public class Bank implements IPrintBasicOperations {
     public Account readAccount() throws IncorrectDetailException {
         Account selectedAccount = null;
         while (selectedAccount == null) {
-            System.out.println("Please enter your ID:");
+            LOGGER.info("Please enter your ID:");
             int accountID = scanner.nextInt();
-            System.out.println("Please enter your phone number:");
+            LOGGER.info("Please enter your phone number:");
             String phoneNumber = scanner.next();
             selectedAccount = lookupAccount(accountID, phoneNumber);
         }
@@ -140,21 +139,21 @@ public class Bank implements IPrintBasicOperations {
                     LOGGER.info(selectedAccount.toString());
                     break;
                 case 2:
-                    System.out.println("Please enter deposit amount:");
+                    LOGGER.info("Please enter deposit amount:");
                     long depositAmount = (long) scanner.nextDouble();
                     selectedAccount.depositMoney(depositAmount);
                     break;
                 case 3:
-                    System.out.println("Please enter withdrawal amount:");
+                    LOGGER.info("Please enter withdrawal amount:");
                     long withdrawalAmount = (long) scanner.nextDouble();
                     selectedAccount.withdrawal(withdrawalAmount);
                     break;
                 case 4:
-                    System.out.println("Please enter the phone number of the account you want to transfer to: ");
+                    LOGGER.info("Please enter the phone number of the account you want to transfer to: ");
                     String accountPhoneNumber = scanner.next();
                     if (isPhoneNumberCorrect(accountPhoneNumber)) {
                         Account accountToTransfer = lookupAccount(accountPhoneNumber);
-                        System.out.println("Enter the amount of money you would like to transfer:");
+                        LOGGER.info("Enter the amount of money you would like to transfer:");
                         long moneyToTransfer = (long) scanner.nextDouble();
                         selectedAccount.transferMoney(selectedAccount, accountToTransfer, moneyToTransfer);
                     }

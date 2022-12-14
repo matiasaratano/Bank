@@ -18,12 +18,7 @@ public class Runner {
     private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
     public static void main(String[] args) {
-        LOGGER.info("Test");
-        LOGGER.error("Error");
-        LOGGER.debug("Debug");
-        LOGGER.warn("Warn");
-
-
+        
         Scanner scanner = new Scanner(System.in);
         Bank bank = initBank();
 
