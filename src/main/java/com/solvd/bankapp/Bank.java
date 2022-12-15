@@ -68,11 +68,11 @@ public class Bank implements IPrintBasicOperations {
 
     public void registerAccount() throws IncorrectNumberException {
         try {
-            LOGGER.info("First name?");
+            System.out.println("First name?");
             String firstName = scanner.next();
-            LOGGER.info("Last name?");
+            System.out.println("Last name?");
             String lastName = scanner.next();
-            LOGGER.info("Phone number?");
+            System.out.println("Phone number?");
             String phoneNumber = scanner.next();
             if (isPhoneNumberCorrect(phoneNumber)) {
                 boolean exitRequested = false;
@@ -110,9 +110,9 @@ public class Bank implements IPrintBasicOperations {
     public Account readAccount() throws IncorrectDetailException {
         Account selectedAccount = null;
         while (selectedAccount == null) {
-            LOGGER.info("Please enter your ID:");
+            System.out.println("Please enter your ID:");
             int accountID = scanner.nextInt();
-            LOGGER.info("Please enter your phone number:");
+            System.out.println("Please enter your phone number:");
             String phoneNumber = scanner.next();
             selectedAccount = lookupAccount(accountID, phoneNumber);
         }
@@ -139,21 +139,21 @@ public class Bank implements IPrintBasicOperations {
                     LOGGER.info(selectedAccount.toString());
                     break;
                 case 2:
-                    LOGGER.info("Please enter deposit amount:");
+                    System.out.println("Please enter deposit amount:");
                     long depositAmount = (long) scanner.nextDouble();
                     selectedAccount.depositMoney(depositAmount);
                     break;
                 case 3:
-                    LOGGER.info("Please enter withdrawal amount:");
+                    System.out.println("Please enter withdrawal amount:");
                     long withdrawalAmount = (long) scanner.nextDouble();
                     selectedAccount.withdrawal(withdrawalAmount);
                     break;
                 case 4:
-                    LOGGER.info("Please enter the phone number of the account you want to transfer to: ");
+                    System.out.println("Please enter the phone number of the account you want to transfer to: ");
                     String accountPhoneNumber = scanner.next();
                     if (isPhoneNumberCorrect(accountPhoneNumber)) {
                         Account accountToTransfer = lookupAccount(accountPhoneNumber);
-                        LOGGER.info("Enter the amount of money you would like to transfer:");
+                        System.out.println("Enter the amount of money you would like to transfer:");
                         long moneyToTransfer = (long) scanner.nextDouble();
                         selectedAccount.transferMoney(selectedAccount, accountToTransfer, moneyToTransfer);
                     }
@@ -188,7 +188,7 @@ public class Bank implements IPrintBasicOperations {
                     if (creditAmount > creditSummary.getSalary() * 10) {
                         LOGGER.info("You cant get more than 10 salaries");
                     }
-                    LOGGER.info("Enter the amount (up to 10 salaries) or 0 to close");
+                    System.out.println("Enter the amount (up to 10 salaries) or 0 to close");
                     creditAmount = (long) scanner.nextDouble();
                 } while (creditAmount < 0 || creditAmount > creditSummary.getSalary() * 10);
             }

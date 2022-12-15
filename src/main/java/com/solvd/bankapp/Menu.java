@@ -10,7 +10,7 @@ public class Menu {
     private static final Logger LOGGER = LogManager.getLogger(Menu.class);
 
     public static void printMenu() {
-        LOGGER.info("Hello, press: " + "\n" +
+        System.out.println("Hello, press: " + "\n" +
                 "\r" + "1.Register" + "\n" +
                 "\r" + "2.Log in" + "\n" +
                 "\r" + "3.List Accounts Registered" + "\n" +
@@ -19,7 +19,7 @@ public class Menu {
     }
 
     public static void existAccountMenu() {
-        LOGGER.info("What would you like to do?" + "\n" +
+        System.out.println("What would you like to do?" + "\n" +
                 "\r" + "1.Info" + "\n" +
                 "\r" + "2.Deposit money" + "\n" +
                 "\r" + "3.Withdrawal money" + "\n" +

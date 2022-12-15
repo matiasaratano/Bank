@@ -6,7 +6,6 @@ import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
 import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.persons.Client;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,7 +17,7 @@ public class Runner {
     private static final Logger LOGGER = LogManager.getLogger(Runner.class);
 
     public static void main(String[] args) {
-        
+
         Scanner scanner = new Scanner(System.in);
         Bank bank = initBank();
 
