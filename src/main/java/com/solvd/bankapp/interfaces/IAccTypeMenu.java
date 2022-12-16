@@ -3,7 +3,7 @@ package com.solvd.bankapp.interfaces;
 
 public interface IAccTypeMenu {
 
-    public static void IAccTypeMenu() {
+    public static void printAccTypeMenu() {
         System.out.println("What type of account do you want to register?" + "\n" +
                 "\r" + "1.Checking" + "\n" +
                 "\r" + "2.Savings" + "\n" +

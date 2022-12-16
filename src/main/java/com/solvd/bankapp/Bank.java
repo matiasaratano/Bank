@@ -77,7 +77,7 @@ public class Bank implements IPrintBasicOperations {
             if (isPhoneNumberCorrect(phoneNumber)) {
                 boolean exitRequested = false;
                 while (!exitRequested) {
-                    IAccTypeMenu.IAccTypeMenu();
+                    IAccTypeMenu.printAccTypeMenu();
                     int choice = Integer.parseInt(scanner.next());
                     switch (choice) {
                         case 1:
