@@ -1,9 +1,5 @@
 package com.solvd.bankapp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Scanner;
-
 import com.solvd.bankapp.accounts.Account;
 import com.solvd.bankapp.accounts.CheckingAccount;
 import com.solvd.bankapp.accounts.SavingsAccount;
@@ -13,6 +9,10 @@ import com.solvd.bankapp.interfaces.IPrintBasicOperations;
 import com.solvd.bankapp.persons.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Bank implements IPrintBasicOperations {
 
@@ -96,7 +96,7 @@ public class Bank implements IPrintBasicOperations {
                             exitRequested = true;
                             break;
                         default:
-                            LOGGER.info("Wrong input");
+                            LOGGER.warn("Wrong input");
                             break;
                     }
                 }

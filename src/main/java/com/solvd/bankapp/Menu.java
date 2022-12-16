@@ -1,7 +1,6 @@
 package com.solvd.bankapp;
 
 
-import com.solvd.bankapp.interfaces.IAccTypeMenu;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
