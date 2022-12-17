@@ -1,25 +1,28 @@
 package com.solvd.bankapp.persons;
 
-import java.util.Objects;
-
 import com.solvd.bankapp.Address;
 import com.solvd.bankapp.CreditSummary;
-import com.solvd.bankapp.linkedlist.CustomLinkedList;
 import com.solvd.bankapp.card.Card;
+import com.solvd.bankapp.linkedlist.CustomLinkedList;
+
+import java.util.Objects;
 
 public class Client extends Person {
 
     private CustomLinkedList<Card> card;
     private CreditSummary creditSummary;
 
+
     public Client(String name, String lastName, String phoneNumber) {
         super(name, lastName, phoneNumber);
         this.card = new CustomLinkedList<>();
+
     }
 
     public Client(String name, String lastName, String phoneNumber, Address address) {
         super(name, lastName, phoneNumber, address);
         this.card = new CustomLinkedList<>();
+
     }
 
 
@@ -27,6 +30,7 @@ public class Client extends Person {
         super(name, lastName, phoneNumber, address);
         this.creditSummary = creditSummary;
         this.card = new CustomLinkedList<>();
+
     }
 
     public void setCard(Card card) {

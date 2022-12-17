@@ -1,12 +1,7 @@
 package com.solvd.bankapp;
 
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
 public class Menu {
-
-    private static final Logger LOGGER = LogManager.getLogger(Menu.class);
 
     public static void printMenu() {
         System.out.println("Hello, press: " + "\n" +
@@ -14,7 +9,9 @@ public class Menu {
                 "\r" + "2.Log in" + "\n" +
                 "\r" + "3.List Accounts Registered" + "\n" +
                 "\r" + "4.Print Basic Operations" + "\n" +
-                "\r" + "5.Exit");
+                "\r" + "5.Print High Balance Accounts" + "\n" +
+                "\r" + "6.Update Account Balances" + "\n" +
+                "\r" + "7.Exit");
     }
 
     public static void existAccountMenu() {

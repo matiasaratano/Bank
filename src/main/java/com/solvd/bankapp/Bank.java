@@ -6,13 +6,19 @@ import com.solvd.bankapp.accounts.SavingsAccount;
 import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.interfaces.IAccTypeMenu;
 import com.solvd.bankapp.interfaces.IPrintBasicOperations;
+import com.solvd.bankapp.lambda.BankAccountConsumer;
+import com.solvd.bankapp.lambda.BankAccountFunction;
+import com.solvd.bankapp.lambda.BankAccountPredicate;
 import com.solvd.bankapp.persons.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class Bank implements IPrintBasicOperations {
 
@@ -49,7 +55,6 @@ public class Bank implements IPrintBasicOperations {
         throw new IncorrectDetailException("One of the details is incorrect");
 
     }
-
 
     public void listAccounts() {
         for (Account account : accounts) {
@@ -231,6 +236,48 @@ public class Bank implements IPrintBasicOperations {
         for (String key : map.keySet()) {
             String value = map.get(key);
             LOGGER.info(key + ": " + value);
+        }
+    }
+
+
+    public ArrayList<Account> filterAccounts(Predicate<Account> predicate) {
+        ArrayList<Account> filteredAccounts = new ArrayList<>();
+        for (Account account : accounts) {
+            if (predicate.test(account)) {
+                filteredAccounts.add(account);
+            }
+        }
+        return filteredAccounts;
+    }
+
+    public void updateAccountBalances(Function<Account, Long> mapper) {
+        for (Account account : accounts) {
+            long newBalance = mapper.apply(account);
+            account.setBalance(newBalance);
+        }
+    }
+
+    public List<Account> filterAccountsByAdress(BankAccountPredicate<Account> predicate) {
+        List<Account> filteredAccounts = new ArrayList<>();
+        for (Account account : this.accounts) {
+            if (predicate.test(account)) {
+                filteredAccounts.add(account);
+            }
+        }
+        return filteredAccounts;
+    }
+
+    public List<String> getAccountSummaries(BankAccountFunction<Account, String> mapper) {
+        List<String> summaries = new ArrayList<>();
+        for (Account account : this.accounts) {
+            summaries.add(mapper.apply(account));
+        }
+        return summaries;
+    }
+
+    public void updateAccounts(BankAccountConsumer<Account> consumer) {
+        for (Account account : this.accounts) {
+            consumer.accept(account);
         }
     }
 }

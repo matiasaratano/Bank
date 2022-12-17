@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class FileUtilsTask {
     public static void main(String[] args) {
-        // Read a file
+        // Read
         File file = new File("./src/main/resources/file.txt");
         String content = "";
         try {
@@ -17,7 +17,7 @@ public class FileUtilsTask {
             e.printStackTrace();
         }
 
-        // Write a file
+        // Write
         String newContent = "This is a test.";
         try {
             FileUtils.writeStringToFile(file, newContent, "UTF-8");

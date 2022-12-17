@@ -47,4 +47,7 @@ public class Address {
                 + streetAddress + ", zipCode=" + zipCode + "]";
     }
 
+    public String getCountry() {
+        return country;
+    }
 }

@@ -50,5 +50,5 @@ public abstract class Account implements IDeposit, IWithdrawal, ITransfer {
 
     public abstract String getSummary();
 
-
+  
 }
