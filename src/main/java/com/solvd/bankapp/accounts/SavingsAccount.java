@@ -20,12 +20,6 @@ public class SavingsAccount extends Account implements IDeposit, IWithdrawal {
         super(client);
     }
 
-
-    @Override
-    public String getSummary() {
-        return "ID: " + getID() + ", " + "Phone: " + getPhoneNumber() + ", " + getClient().getFullName() + ", Account Type: " + accType;
-    }
-
     @Override
     public void depositMoney(long depositAmount) throws InvalidAmountException {
         if (depositAmount < 0) {
@@ -51,7 +45,6 @@ public class SavingsAccount extends Account implements IDeposit, IWithdrawal {
 
     }
 
-
     @Override
     public void transferMoney(Account thisAccount, Account toAccount, long amountToTransfer) throws InvalidAmountException, InsufficientFundsException, InvalidAccountException {
         if (thisAccount.getID() == toAccount.getID()) {
@@ -66,6 +59,11 @@ public class SavingsAccount extends Account implements IDeposit, IWithdrawal {
         } else {
             throw new InsufficientFundsException("Insufficient funds in the account");
         }
+    }
+
+    @Override
+    public String getSummary() {
+        return "ID: " + getID() + ", " + "Phone: " + getPhoneNumber() + ", " + getClient().getFullName() + ", " + "Balance: " + getBalance() + ", Account Type: " + accType;
     }
 
     @Override

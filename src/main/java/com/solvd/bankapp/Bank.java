@@ -141,7 +141,7 @@ public class Bank implements IPrintBasicOperations {
             int choice = Integer.parseInt(scanner.next());
             switch (choice) {
                 case 1:
-                    LOGGER.info(selectedAccount.toString());
+                    LOGGER.info(selectedAccount.getSummary());
                     break;
                 case 2:
                     System.out.println("Please enter deposit amount:");

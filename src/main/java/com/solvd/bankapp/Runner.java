@@ -91,7 +91,7 @@ public class Runner {
         Address address3 = new Address("EEUU", "CA", "Venice", "CDE", "345");
         Bank bank = new Bank("bank1", address1);
         Card card1 = new Card("123456789", "202608", "202108", "John Florence", "BBVA", Scheme.MASTER_CARD,
-                CardType.DEBIT);
+                CardType.DEBIT, 100000, 10);
         CreditSummary credSummary1 = new CreditSummary(4000, 50000, false, false);
         CreditSummary credSummary2 = new CreditSummary(3000, 150000, false, true);
         CreditSummary credSummary3 = new CreditSummary(2000, 200, true, false);
