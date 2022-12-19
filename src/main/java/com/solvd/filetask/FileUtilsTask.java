@@ -15,45 +15,25 @@ public class FileUtilsTask {
         // Read a file into a string
         String text = FileUtils.readFileToString(
                 new File("./src/main/resources/txt/input.txt"), "UTF-8");
+        System.out.println(text);
 
         // Remove whitespace from text
         String noWhitespace = StringUtils.deleteWhitespace(text);
-        //System.out.println(noWhitespace);
+        System.out.println(noWhitespace);
 
         // Split the string into an array of words
         String[] words = StringUtils.split(text);
-        //for (int i = 0; i < words.length; i++) {
-        //    System.out.println(words[i]);
-        //}
+        for (int i = 0; i < words.length; i++) {
+            System.out.println(words[i]);
+        }
 
         // Reverse a word
         String reverse = StringUtils.reverse(words[0]);
-        //System.out.println(reverse);
+        System.out.println(reverse);
 
         // Join the words in the array into a single string, separated by commas
         String joined = StringUtils.join(words, ',');
-        //System.out.println(joined);
-
-        // Write the modified string to a new file
-        FileUtils.writeStringToFile(
-                new File("./src/main/resources/txt/outputjoined.txt"), joined, "UTF-8");
-
-        //Copy the input file to a new location
-        //FileUtils.copyFile(
-        //        new File("./src/main/resources/txt/input.txt"),
-        //        new File("./src/main/resources/txt/input-copy.txt"));
-
-        // Rename the copied file
-        //FileUtils.moveFile(
-        //  new File("./src/main/resources/txt/input-copy.txt"),
-        //   new File("./src/main/resources/txt/input-copy-renamed.txt"));
-
-        // Delete the original input file
-        //FileUtils.deleteQuietly(new File("./src/main/resources/txt/input.txt"));
-
-        // Get the size of the output file in bytes
-        long size = FileUtils.sizeOf(new File("./src/main/resources/txt/output.txt"));
-        //System.out.println(size);
+        System.out.println(joined);
 
         Pattern pattern = Pattern.compile(words[0]); //This
         Matcher matcher = pattern.matcher("This is a test");
@@ -63,6 +43,31 @@ public class FileUtilsTask {
                     matcher.start() + " and ending at index " + matcher.end());
 
         }
-        
     }
+
+    //Copy the input file to a new location
+    public void copyFile() throws IOException {
+        FileUtils.copyFile(
+                new File("./src/main/resources/txt/input.txt"),
+                new File("./src/main/resources/txt/input-copy.txt"));
+    }
+
+    // Rename the copied file
+    public void renameFile() throws IOException {
+        FileUtils.moveFile(
+                new File("./src/main/resources/txt/input-copy.txt"),
+                new File("./src/main/resources/txt/input-copy-renamed.txt"));
+    }
+
+    // Get the size of the output file in bytes
+    public void sizeInBytes() {
+        long size = FileUtils.sizeOf(new File("./src/main/resources/txt/output.txt"));
+        System.out.println(size);
+    }
+
+    // Delete the original input file
+    public void deleteFile() {
+        FileUtils.deleteQuietly(new File("./src/main/resources/txt/input.txt"));
+    }
+
 }
