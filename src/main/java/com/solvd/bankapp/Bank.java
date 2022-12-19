@@ -84,15 +84,16 @@ public class Bank implements IPrintBasicOperations {
                 while (!exitRequested) {
                     IAccTypeMenu.printAccTypeMenu();
                     int choice = Integer.parseInt(scanner.next());
+                    Client client = new Client(firstName, lastName, phoneNumber);
                     switch (choice) {
                         case 1:
-                            accounts.add(new CheckingAccount(new Client(firstName, lastName, phoneNumber)));
+                            accounts.add(new CheckingAccount(client));
                             LOGGER.info("You have created a checking account successfully!" + "\n" + "Your account ID is: "
                                     + accounts.get(accounts.size() - 1).getID());
                             exitRequested = true;
                             break;
                         case 2:
-                            accounts.add(new SavingsAccount(new Client(firstName, lastName, phoneNumber)));
+                            accounts.add(new SavingsAccount(client));
                             LOGGER.info("You have created a savings account successfully!" + "\n" + "Your account ID is: "
                                     + accounts.get(accounts.size() - 1).getID());
                             exitRequested = true;
