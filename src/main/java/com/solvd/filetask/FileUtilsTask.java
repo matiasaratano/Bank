@@ -59,15 +59,15 @@ public class FileUtilsTask {
                 new File("./src/main/resources/txt/input-copy-renamed.txt"));
     }
 
-    // Get the size of the output file in bytes
+    // Get the size in bytes
     public void sizeInBytes() {
         long size = FileUtils.sizeOf(new File("./src/main/resources/txt/output.txt"));
         System.out.println(size);
     }
 
-    // Delete the original input file
-    public void deleteFile() {
-        FileUtils.deleteQuietly(new File("./src/main/resources/txt/input.txt"));
+    // Delete
+    public void deleteFile() throws IOException {
+        FileUtils.delete(new File("./src/main/resources/txt/input.txt"));
     }
 
 }
