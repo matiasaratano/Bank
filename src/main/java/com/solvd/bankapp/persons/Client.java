@@ -9,19 +9,19 @@ import java.util.Objects;
 
 public class Client extends Person {
 
-    private CustomLinkedList<Card> card;
+    private CustomLinkedList<Card> cards;
     private CreditSummary creditSummary;
 
 
     public Client(String name, String lastName, String phoneNumber) {
         super(name, lastName, phoneNumber);
-        this.card = new CustomLinkedList<>();
+        this.cards = new CustomLinkedList<>();
 
     }
 
     public Client(String name, String lastName, String phoneNumber, Address address) {
         super(name, lastName, phoneNumber, address);
-        this.card = new CustomLinkedList<>();
+        this.cards = new CustomLinkedList<>();
 
     }
 
@@ -29,14 +29,23 @@ public class Client extends Person {
     public Client(String name, String lastName, String phoneNumber, Address address, CreditSummary creditSummary) {
         super(name, lastName, phoneNumber, address);
         this.creditSummary = creditSummary;
-        this.card = new CustomLinkedList<>();
+        this.cards = new CustomLinkedList<>();
 
     }
 
     public void setCard(Card card) {
-        this.card.add(card);
+        this.cards.add(card);
     }
 
+
+    public Card getCard(int index) {
+
+        return cards.get(index);
+    }
+
+    public CustomLinkedList<Card> getCards() {
+        return cards;
+    }
 
     public CreditSummary getCreditSummary() {
         return creditSummary;
@@ -55,7 +64,7 @@ public class Client extends Person {
     public int hashCode() {
         final int prime = 31;
         int result = super.hashCode();
-        result = prime * result + Objects.hash(card, creditSummary, getPhoneNumber());
+        result = prime * result + Objects.hash(cards, creditSummary, getPhoneNumber());
         return result;
     }
 
@@ -71,7 +80,7 @@ public class Client extends Person {
             return false;
         }
         Client other = (Client) obj;
-        return Objects.equals(card, other.card) && Objects.equals(creditSummary, other.creditSummary)
+        return Objects.equals(cards, other.cards) && Objects.equals(creditSummary, other.creditSummary)
                 && Objects.equals(getPhoneNumber(), other.getPhoneNumber());
     }
 

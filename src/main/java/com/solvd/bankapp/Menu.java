@@ -20,7 +20,8 @@ public class Menu {
                 "\r" + "2.Deposit money" + "\n" +
                 "\r" + "3.Withdrawal money" + "\n" +
                 "\r" + "4.Money transferring" + "\n" +
-                "\r" + "5.Get a Credit" + "\n" + "\r" + "6.Exit");
+                "\r" + "5.Get a Credit" + "\n" + "\r" +
+                "\r" + "6.Print Cards" + "\n" + "\r" + "7.Exit");
     }
 
 

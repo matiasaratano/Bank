@@ -7,7 +7,6 @@ import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.interfaces.IAccTypeMenu;
 import com.solvd.bankapp.interfaces.IPrintBasicOperations;
 import com.solvd.bankapp.lambda.BankAccountConsumer;
-import com.solvd.bankapp.lambda.BankAccountFunction;
 import com.solvd.bankapp.lambda.BankAccountPredicate;
 import com.solvd.bankapp.persons.Client;
 import org.apache.logging.log4j.LogManager;
@@ -173,6 +172,11 @@ public class Bank implements IPrintBasicOperations {
                     }
                     break;
                 case 6:
+                    for (int i = 0; i < selectedAccount.getClient().getCards().size(); i++) {
+                        LOGGER.info(selectedAccount.getClient().getCard(i));
+                    }
+                    break;
+                case 7:
                     exitRequested = true;
                     break;
                 default:
@@ -266,14 +270,6 @@ public class Bank implements IPrintBasicOperations {
             }
         }
         return filteredAccounts;
-    }
-
-    public List<String> getAccountSummaries(BankAccountFunction<Account, String> mapper) {
-        List<String> summaries = new ArrayList<>();
-        for (Account account : this.accounts) {
-            summaries.add(mapper.apply(account));
-        }
-        return summaries;
     }
 
     public void updateAccounts(BankAccountConsumer<Account> consumer) {

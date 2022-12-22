@@ -1,19 +1,20 @@
 package com.solvd.bankapp.card;
 
 public enum CardType {
-    CREDIT, DEBIT;
-
+    CREDIT("Credit", 10000, 150), DEBIT("Debit", 1000000, 50);
+    private final String name;
     private int maxLimit;
     private int annualFee;
 
-    CardType() {
-        // default values for maxLimit and annualFee
-        this(0, 0);
-    }
 
-    CardType(int maxLimit, int annualFee) {
+    CardType(String name, int maxLimit, int annualFee) {
+        this.name = name;
         this.maxLimit = maxLimit;
         this.annualFee = annualFee;
+    }
+
+    public String getName() {
+        return name;
     }
 
     public int getMaxLimit() {
@@ -34,6 +35,10 @@ public enum CardType {
 
     @Override
     public String toString() {
-        return this.name() + " (max limit: " + this.maxLimit + ", annual fee: " + this.annualFee + ")";
+        return "CardType{" +
+                "name='" + name + '\'' +
+                ", maxLimit=" + maxLimit +
+                ", annualFee=" + annualFee +
+                '}';
     }
 }

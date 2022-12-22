@@ -78,8 +78,6 @@ public class Runner {
 
         // Lambda function to filter Accounts by address
         bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals("EEUU"));
-        // Lambda function to get an Account Summary
-        bank.getAccountSummaries(account -> "Account ID: " + account.getID() + ", Balance: " + account.getBalance());
         // Lambda function to update the balances of all accounts (+100)
         bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
     }
@@ -91,7 +89,9 @@ public class Runner {
         Address address3 = new Address("EEUU", "CA", "Venice", "CDE", "345");
         Bank bank = new Bank("bank1", address1);
         Card card1 = new Card("123456789", "202608", "202108", "John Florence", "BBVA", Scheme.MASTER_CARD,
-                CardType.DEBIT, 100000, 10);
+                CardType.DEBIT);
+        Card card2 = new Card("123456789", "202608", "202108", "John Florence", "BBVA", Scheme.VISA,
+                CardType.CREDIT);
         CreditSummary credSummary1 = new CreditSummary(4000, 50000, false, false);
         CreditSummary credSummary2 = new CreditSummary(3000, 150000, false, true);
         CreditSummary credSummary3 = new CreditSummary(2000, 200, true, false);
@@ -100,6 +100,7 @@ public class Runner {
         Client client3 = new Client("Mark", "Zucke", "1234567899", address3, credSummary3);
         Client client4 = new Client("Peter", "Terry", "1234567891", address3, credSummary1);
         client1.setCard(card1);
+        client1.setCard(card2);
         bank.registerCheckingAccount(client1);
         bank.registerCheckingAccount(client2);
         bank.registerCheckingAccount(client3);

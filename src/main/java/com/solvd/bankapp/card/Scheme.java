@@ -1,18 +1,30 @@
 package com.solvd.bankapp.card;
 
 public enum Scheme {
-    VISA, MASTER_CARD, AMERICAN_EXPRESS, DINERS_CLUB, JCB, DISCOVER;
+    VISA("Visa"), MASTER_CARD("Master Card"), AMERICAN_EXPRESS("American Express"), DINERS_CLUB("Diners Club"), JCB("Jcb"), DISCOVER("Discover");
 
+
+    private String name;
     private String issuer;
     private String country;
 
-    Scheme() {
-        this("", "");
+    Scheme(String name) {
+        this.name = name;
     }
 
-    Scheme(String issuer, String country) {
+    Scheme(String name, String issuer, String country) {
+        this.name = name;
         this.issuer = issuer;
         this.country = country;
+    }
+
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIssuer() {
@@ -30,9 +42,5 @@ public enum Scheme {
     public void setCountry(String country) {
         this.country = country;
     }
-
-    @Override
-    public String toString() {
-        return this.name() + " (issuer: " + this.issuer + ", country: " + this.country + ")";
-    }
+    
 }

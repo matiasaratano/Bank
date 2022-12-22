@@ -13,11 +13,10 @@ public class Card {
     private String bank;
     private Scheme scheme;
     private CardType type;
-    private int maxLimit;
-    private int annualFee;
+
 
     public Card(String cardNumber, String dateExp, String dateFrom, String titular, String bank, Scheme scheme,
-                CardType type, int maxLimit, int annualFee) {
+                CardType type) {
         this.cardNumber = cardNumber;
         this.dateExp = dateExp;
         this.dateFrom = dateFrom;
@@ -26,16 +25,6 @@ public class Card {
         this.scheme = scheme;
         this.type = type;
         this.cvv = ThreadLocalRandom.current().nextInt(100, 999);
-        this.maxLimit = maxLimit;
-        this.annualFee = annualFee;
-    }
-
-    public String getCardNumber() {
-        return cardNumber;
-    }
-
-    public String getTitular() {
-        return titular;
     }
 
     @Override
@@ -64,7 +53,7 @@ public class Card {
     public String toString() {
         return "Card [cardNumber=" + cardNumber + ", dateExp=" + dateExp + ", dateFrom=" + dateFrom + ", titular="
                 + titular
-                + ", bank=" + bank + ", scheme=" + scheme + ", type=" + type + "]";
+                + ", bank=" + bank + ", scheme=" + scheme.getName() + ", type=" + type.getName() + "]";
     }
 
 }
