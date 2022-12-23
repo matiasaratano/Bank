@@ -55,7 +55,6 @@ public class Runner {
                         ArrayList<Account> highBalanceAccounts = bank.filterAccounts(a -> a.getBalance() > 150.0);
                         for (Account account : highBalanceAccounts) {
                             LOGGER.info(account.getSummary() + ", Balance: " + account.getBalance());
-
                         }
                     case 6:
                         // Lambda function to update the balances of all accounts (duplicates it to test the method)
@@ -80,6 +79,9 @@ public class Runner {
         bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals("EEUU"));
         // Lambda function to update the balances of all accounts (+100)
         bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
+        // Lambda function to perform an operation
+        bank.performOperations((Account account, Double amount, String type) -> account.performOperation(amount, type));
+
     }
 
     private static Bank initBank() throws IncorrectDetailException {

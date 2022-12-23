@@ -8,6 +8,7 @@ import com.solvd.bankapp.interfaces.IAccTypeMenu;
 import com.solvd.bankapp.interfaces.IPrintBasicOperations;
 import com.solvd.bankapp.lambda.BankAccountConsumer;
 import com.solvd.bankapp.lambda.BankAccountPredicate;
+import com.solvd.bankapp.lambda.TriArgFunction;
 import com.solvd.bankapp.persons.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -275,6 +276,16 @@ public class Bank implements IPrintBasicOperations {
     public void updateAccounts(BankAccountConsumer<Account> consumer) {
         for (Account account : this.accounts) {
             consumer.accept(account);
+        }
+    }
+
+    public void performOperations(TriArgFunction<Account, Double, String, Boolean> operation) {
+        for (Account account : this.accounts) {
+            if (operation.apply(account, 100.0, "withdraw")) {
+                System.out.println("Successfully performed operation on account: " + account.getID());
+            } else {
+                System.out.println("Failed to perform operation on account: " + account.getID());
+            }
         }
     }
 }

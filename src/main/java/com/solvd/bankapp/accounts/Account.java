@@ -49,6 +49,18 @@ public abstract class Account implements IDeposit, IWithdrawal, ITransfer {
     }
 
     public abstract String getSummary();
-
-  
+    
+    public Boolean performOperation(Double amount, String type) {
+        if (type.equals("withdraw")) {
+            if (amount > this.balance) {
+                return false;
+            }
+            this.balance -= amount;
+            return true;
+        } else if (type.equals("deposit")) {
+            this.balance += amount;
+            return true;
+        }
+        return false;
+    }
 }
