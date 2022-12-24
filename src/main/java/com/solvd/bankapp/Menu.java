@@ -11,7 +11,8 @@ public class Menu {
                 "\r" + "4.Print Basic Operations" + "\n" +
                 "\r" + "5.Print High Balance Accounts" + "\n" +
                 "\r" + "6.Update Account Balances" + "\n" +
-                "\r" + "7.Exit");
+                "\r" + "7.Filter Accounts By Country" + "\n" +
+                "\r" + "8.Exit");
     }
 
     public static void existAccountMenu() {
@@ -24,5 +25,13 @@ public class Menu {
                 "\r" + "6.Print Cards" + "\n" + "\r" + "7.Exit");
     }
 
-
+    public static void countriesMenu() {
+        System.out.println("Select Country" + "\n" +
+                "\r" + "1.Argentina" + "\n" +
+                "\r" + "2.Brasil" + "\n" +
+                "\r" + "3.Canada" + "\n" +
+                "\r" + "4.USA" + "\n" +
+                "\r" + "5.Mexico" + "\n" + "\r" +
+                "\r" + "6.Exit");
+    }
 }

@@ -1,6 +1,6 @@
 package com.solvd.bankapp.persons;
 
-import com.solvd.bankapp.Address;
+import com.solvd.bankapp.adress.Address;
 import com.solvd.bankapp.CreditSummary;
 import com.solvd.bankapp.card.Card;
 import com.solvd.bankapp.linkedlist.CustomLinkedList;

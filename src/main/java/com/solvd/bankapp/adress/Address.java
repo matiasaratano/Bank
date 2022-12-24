@@ -1,17 +1,17 @@
-package com.solvd.bankapp;
+package com.solvd.bankapp.adress;
 
 
 import java.util.Objects;
 
 public class Address {
 
-    private String country;
+    private Country country;
     private String province;
     private String town;
     private String streetAddress;
     private String zipCode;
 
-    public Address(String country, String province, String town, String streetAddress, String zipCode) {
+    public Address(Country country, String province, String town, String streetAddress, String zipCode) {
         this.country = country;
         this.province = province;
         this.town = town;
@@ -47,7 +47,7 @@ public class Address {
                 + streetAddress + ", zipCode=" + zipCode + "]";
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 }

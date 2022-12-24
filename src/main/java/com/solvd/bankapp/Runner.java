@@ -2,6 +2,8 @@ package com.solvd.bankapp;
 
 
 import com.solvd.bankapp.accounts.Account;
+import com.solvd.bankapp.adress.Address;
+import com.solvd.bankapp.adress.Country;
 import com.solvd.bankapp.card.Card;
 import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
@@ -54,13 +56,50 @@ public class Runner {
                         // Lambda function to filter the accounts by balance (bigger than 150)
                         ArrayList<Account> highBalanceAccounts = bank.filterAccounts(a -> a.getBalance() > 150.0);
                         for (Account account : highBalanceAccounts) {
-                            LOGGER.info(account.getSummary() + ", Balance: " + account.getBalance());
+                            LOGGER.info(account.getSummary());
                         }
+                        break;
                     case 6:
                         // Lambda function to update the balances of all accounts (duplicates it to test the method)
                         bank.updateAccountBalances(a -> (a.getBalance() * 2));
                         break;
                     case 7:
+                        // Lambda function to filter Accounts by address
+                        boolean exitRequestedd = false;
+                        Country country = null;
+                        while (!exitRequestedd) {
+                            Menu.countriesMenu();
+                            int choices = Integer.parseInt(scanner.next());
+
+                            switch (choices) {
+                                case 1:
+                                    country = Country.ARGENTINA;
+                                    break;
+                                case 2:
+                                    country = Country.BRAZIL;
+                                    break;
+                                case 3:
+                                    country = Country.CANADA;
+                                    break;
+                                case 4:
+                                    country = Country.USA;
+                                    break;
+                                case 5:
+                                    country = Country.MEXICO;
+                                    break;
+                                case 6:
+                                    exitRequestedd = true;
+                                    break;
+                                default:
+                                    LOGGER.warn("Invalid country selected");
+                                    break;
+
+                            }
+                            Country finalCountry = country;
+                            LOGGER.info(bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals(finalCountry)));
+                            break;
+                        }
+                    case 8:
                         exitRequested = true;
                         break;
                     default:
@@ -75,20 +114,19 @@ public class Runner {
         }
         scanner.close();
 
-        // Lambda function to filter Accounts by address
-        bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals("EEUU"));
+
         // Lambda function to update the balances of all accounts (+100)
-        bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
+        //bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
         // Lambda function to perform an operation
-        bank.performOperations((Account account, Double amount, String type) -> account.performOperation(amount, type));
+        //bank.performOperations((Account account, Double amount, String type) -> account.performOperation(amount, type));
 
     }
 
     private static Bank initBank() throws IncorrectDetailException {
 
-        Address address1 = new Address("EEUU", "CA", "Venice", "ABC", "123");
-        Address address2 = new Address("EEUU", "CA", "Santa Monica", "BCD", "234");
-        Address address3 = new Address("EEUU", "CA", "Venice", "CDE", "345");
+        Address address1 = new Address(Country.ARGENTINA, "BsAs", "Villa Gesell", "ABC", "123");
+        Address address2 = new Address(Country.BRAZIL, "Rio", "Ipanema", "BCD", "234");
+        Address address3 = new Address(Country.CANADA, "Ontario", "Toronto", "CDE", "345");
         Bank bank = new Bank("bank1", address1);
         Card card1 = new Card("123456789", "202608", "202108", "John Florence", "BBVA", Scheme.MASTER_CARD,
                 CardType.DEBIT);

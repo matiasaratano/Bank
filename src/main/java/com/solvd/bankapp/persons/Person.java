@@ -1,8 +1,8 @@
 package com.solvd.bankapp.persons;
 
-import java.util.Objects;
+import com.solvd.bankapp.adress.Address;
 
-import com.solvd.bankapp.Address;
+import java.util.Objects;
 
 public abstract class Person {
 
