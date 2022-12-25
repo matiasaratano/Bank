@@ -28,10 +28,18 @@ public class Menu {
     public static void countriesMenu() {
         System.out.println("Select Country" + "\n" +
                 "\r" + "1.Argentina" + "\n" +
-                "\r" + "2.Brasil" + "\n" +
+                "\r" + "2.Brazil" + "\n" +
                 "\r" + "3.Canada" + "\n" +
                 "\r" + "4.USA" + "\n" +
                 "\r" + "5.Mexico" + "\n" + "\r" +
-                "\r" + "6.Exit");
+                "\r" + "6.Back");
+    }
+
+    public static void updateBalance() {
+        System.out.println("Select Option:" + "\n" +
+                "\r" + "1.Double balances" + "\n" +
+                "\r" + "2.Add 100 to accounts balances " + "\n" +
+                "\r" + "3.Deposit 50 to accounts balances " + "\n" +
+                "\r" + "4.Back");
     }
 }

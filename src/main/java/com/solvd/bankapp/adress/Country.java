@@ -2,22 +2,22 @@ package com.solvd.bankapp.adress;
 
 public enum Country {
 
-    USA("Washington D.C."),
-    CANADA("Ottawa"),
-    MEXICO("Mexico City"),
-    BRAZIL("Brasília"),
-    ARGENTINA("Buenos Aires");
+    USA("United States"),
+    CANADA("Canada"),
+    MEXICO("Mexico"),
+    BRAZIL("Brazil"),
+    ARGENTINA("Argentina");
 
 
-    private final String capital;
+    private final String name;
 
-    Country(String capital) {
-        this.capital = capital;
+    Country(String name) {
+        this.name = name;
 
     }
 
-    public String getCapital() {
-        return capital;
+    public String getName() {
+        return name;
     }
 
 }

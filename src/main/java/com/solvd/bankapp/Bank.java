@@ -283,9 +283,9 @@ public class Bank implements IPrintBasicOperations {
     public void performOperations(TriArgFunction<Account, Double, String, Boolean> operation) {
         for (Account account : this.accounts) {
             if (operation.apply(account, 100.0, "withdraw")) {
-                System.out.println("Successfully performed operation on account: " + account.getID());
+                LOGGER.info("Successfully performed operation on account: " + account.getID());
             } else {
-                System.out.println("Failed to perform operation on account: " + account.getID());
+                LOGGER.info("Failed to perform operation on account: " + account.getID());
             }
         }
     }

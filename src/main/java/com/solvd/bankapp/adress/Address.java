@@ -6,12 +6,12 @@ import java.util.Objects;
 public class Address {
 
     private Country country;
-    private String province;
+    private Province province;
     private String town;
     private String streetAddress;
     private String zipCode;
 
-    public Address(Country country, String province, String town, String streetAddress, String zipCode) {
+    public Address(Country country, Province province, String town, String streetAddress, String zipCode) {
         this.country = country;
         this.province = province;
         this.town = town;

@@ -4,6 +4,7 @@ package com.solvd.bankapp;
 import com.solvd.bankapp.accounts.Account;
 import com.solvd.bankapp.adress.Address;
 import com.solvd.bankapp.adress.Country;
+import com.solvd.bankapp.adress.Province;
 import com.solvd.bankapp.card.Card;
 import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
@@ -14,6 +15,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -60,45 +62,70 @@ public class Runner {
                         }
                         break;
                     case 6:
-                        // Lambda function to update the balances of all accounts (duplicates it to test the method)
-                        bank.updateAccountBalances(a -> (a.getBalance() * 2));
+                        Menu.updateBalance();
+                        int newChoice = Integer.parseInt(scanner.next());
+                        switch (newChoice) {
+                            case 1:
+                                // Lambda function to update the balances of all accounts (duplicates it to test the method)
+                                bank.updateAccountBalances(a -> (a.getBalance() * 2));
+                                LOGGER.info("Balances have been updated successfully");
+                                break;
+                            case 2:
+                                // Lambda function to update the balances of all accounts (+100)
+                                bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
+                                LOGGER.info("Balances have been updated successfully");
+                                break;
+                            case 3:
+                                // Lambda function to perform a deposit operation (+50)
+                                bank.performOperations((Account account, Double amount, String type) -> account.performOperation((double) 50, "deposit"));
+                                break;
+                            case 4:
+                                Menu.printMenu();
+                                break;
+                            default:
+                                LOGGER.warn("Invalid number");
+                                break;
+                        }
                         break;
                     case 7:
                         // Lambda function to filter Accounts by address
-                        boolean exitRequestedd = false;
                         Country country = null;
-                        while (!exitRequestedd) {
-                            Menu.countriesMenu();
-                            int choices = Integer.parseInt(scanner.next());
-
-                            switch (choices) {
-                                case 1:
-                                    country = Country.ARGENTINA;
-                                    break;
-                                case 2:
-                                    country = Country.BRAZIL;
-                                    break;
-                                case 3:
-                                    country = Country.CANADA;
-                                    break;
-                                case 4:
-                                    country = Country.USA;
-                                    break;
-                                case 5:
-                                    country = Country.MEXICO;
-                                    break;
-                                case 6:
-                                    exitRequestedd = true;
-                                    break;
-                                default:
-                                    LOGGER.warn("Invalid country selected");
-                                    break;
-
-                            }
-                            Country finalCountry = country;
-                            LOGGER.info(bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals(finalCountry)));
-                            break;
+                        Menu.countriesMenu();
+                        int choices = Integer.parseInt(scanner.next());
+                        switch (choices) {
+                            case 1:
+                                country = Country.ARGENTINA;
+                                break;
+                            case 2:
+                                country = Country.BRAZIL;
+                                break;
+                            case 3:
+                                country = Country.CANADA;
+                                break;
+                            case 4:
+                                country = Country.USA;
+                                break;
+                            case 5:
+                                country = Country.MEXICO;
+                                break;
+                            case 6:
+                                Menu.printMenu();
+                                break;
+                            default:
+                                LOGGER.warn("Invalid country selected");
+                                break;
                         }
+                        Country finalCountry = country;
+                        if (country != null) {
+                            List<Account> filteredAccounts = bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals(finalCountry));
+                            for (Account account : filteredAccounts) {
+                                LOGGER.info(account.getSummary());
+                            }
+                            if (filteredAccounts.size() == 0) {
+                                LOGGER.info("Cero accounts in the selected country");
+                            }
+                        }
+                        break;
                     case 8:
                         exitRequested = true;
                         break;
@@ -115,18 +142,13 @@ public class Runner {
         scanner.close();
 
 
-        // Lambda function to update the balances of all accounts (+100)
-        //bank.updateAccounts(account -> account.setBalance(account.getBalance() + 100));
-        // Lambda function to perform an operation
-        //bank.performOperations((Account account, Double amount, String type) -> account.performOperation(amount, type));
-
     }
 
     private static Bank initBank() throws IncorrectDetailException {
 
-        Address address1 = new Address(Country.ARGENTINA, "BsAs", "Villa Gesell", "ABC", "123");
-        Address address2 = new Address(Country.BRAZIL, "Rio", "Ipanema", "BCD", "234");
-        Address address3 = new Address(Country.CANADA, "Ontario", "Toronto", "CDE", "345");
+        Address address1 = new Address(Country.ARGENTINA, Province.BUENOS_AIRES, "Villa Gesell", "ABC", "123");
+        Address address2 = new Address(Country.BRAZIL, Province.RIO, "Ipanema", "BCD", "234");
+        Address address3 = new Address(Country.CANADA, Province.OTTAWA, "Toronto", "CDE", "345");
         Bank bank = new Bank("bank1", address1);
         Card card1 = new Card("123456789", "202608", "202108", "John Florence", "BBVA", Scheme.MASTER_CARD,
                 CardType.DEBIT);
@@ -149,6 +171,4 @@ public class Runner {
         return bank;
 
     }
-
-
 }
