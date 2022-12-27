@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public class Reflection {
@@ -29,26 +30,34 @@ public class Reflection {
             Method[] methods = reflectedClass.getMethods();
             Reflection.print("Methods", methods);
             //Fields
-            Field[] fields = reflectedClass.getFields();
-            Reflection.print("Fields", fields);
+            Field[] fields = reflectedClass.getDeclaredFields();
+            //Reflection.print("Fields", fields);
+            LOGGER.info("List of " + "Fields" + ":");
+            for (Field field : fields) {
+                LOGGER.info(field.getName() + ": " + field.getType());
+            }
 
-            ReflectionAccountExample reflectedResult = null;
+            ReflectionAccountExample reflectedResult;
             Class<ReflectionAccountExample> resultClass = (Class<ReflectionAccountExample>) Class.forName(PATH);
             reflectedResult = resultClass.newInstance();
             //Default constructor
+            System.out.println("Default Constructor");
             LOGGER.info(reflectedResult.toString());
-            reflectedResult.setDefaulter(true);
+            // Call a method on the object using reflection
+            Method method = reflectedResult.getClass().getMethod("setDefaulter", boolean.class);
+            method.invoke(reflectedResult, true);
+            //reflectedResult.setDefaulter(true);
             reflectedResult.setBalance(10000);
             reflectedResult.setName("Sergio");
             reflectedResult.setId("2");
             //Constructor with arguments
+            System.out.println("Constructor with different arguments");
             LOGGER.info(reflectedResult.toString());
 
         } catch (ClassNotFoundException e) {
             LOGGER.error(e);
-        } catch (InstantiationException e) {
-            throw new RuntimeException(e);
-        } catch (IllegalAccessException e) {
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException |
+                 InvocationTargetException e) {
             throw new RuntimeException(e);
         }
 
