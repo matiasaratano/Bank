@@ -12,7 +12,8 @@ public class Menu {
                 "\r" + "5.Print High Balance Accounts" + "\n" +
                 "\r" + "6.Update Account Balances" + "\n" +
                 "\r" + "7.Filter Accounts By Country" + "\n" +
-                "\r" + "8.Exit");
+                "\r" + "8.Test Streams" + "\n" +
+                "\r" + "9.Exit");
     }
 
     public static void existAccountMenu() {

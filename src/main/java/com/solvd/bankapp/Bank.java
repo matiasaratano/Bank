@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
 
 public class Bank implements IPrintBasicOperations {
 
@@ -289,4 +290,20 @@ public class Bank implements IPrintBasicOperations {
             }
         }
     }
+
+    public void streamTest() {
+        // Create a stream of accounts from the list
+        Stream<Account> accountStream = accounts.stream();
+        System.out.println(accountStream);
+        // Use a non-terminal operation to filter the stream to only include accounts with a balance greater than 1000
+        Stream<Account> filteredAccountStream = accountStream.filter(a -> a.getBalance() > 1000);
+        System.out.println(filteredAccountStream);
+        // Use a non-terminal operation to transform the stream of accounts into a stream of account holder names
+        Stream<String> namesStream = filteredAccountStream.map(a -> a.getLastName());
+        System.out.println(namesStream);
+        // Use a terminal operation to find the first account holder name in the stream
+        String firstName = String.valueOf(namesStream.findFirst());
+        System.out.println(firstName);
+    }
+
 }

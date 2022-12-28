@@ -127,6 +127,9 @@ public class Runner {
                         }
                         break;
                     case 8:
+                        bank.streamTest();
+                        break;
+                    case 9:
                         exitRequested = true;
                         break;
                     default:
