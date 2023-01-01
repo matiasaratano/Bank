@@ -3,10 +3,7 @@ package com.solvd.bankapp.reflection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 
 public class Reflection {
     private static final Logger LOGGER = LogManager.getLogger(Reflection.class);
@@ -26,6 +23,12 @@ public class Reflection {
             //Constructors
             Constructor[] constructors = reflectedClass.getConstructors();
             Reflection.print("Constructors", constructors);
+            for (Constructor o : constructors) {
+                Parameter[] param = o.getParameters();
+                for (Parameter p : param) {
+                    System.out.println(p.getType());
+                }
+            }
             //Methods
             Method[] methods = reflectedClass.getMethods();
             Reflection.print("Methods", methods);
@@ -40,8 +43,8 @@ public class Reflection {
             ReflectionAccountExample reflectedResult;
             Class<ReflectionAccountExample> resultClass = (Class<ReflectionAccountExample>) Class.forName(PATH);
             reflectedResult = resultClass.newInstance();
-            //Default constructor
-            System.out.println("Default Constructor");
+            //Default
+            System.out.println("Default:");
             LOGGER.info(reflectedResult.toString());
             // Call a method on the object using reflection
             Method method = reflectedResult.getClass().getMethod("setDefaulter", boolean.class);
@@ -50,8 +53,8 @@ public class Reflection {
             reflectedResult.setBalance(10000);
             reflectedResult.setName("Sergio");
             reflectedResult.setId("2");
-            //Constructor with arguments
-            System.out.println("Constructor with different arguments");
+            //Different fields
+            System.out.println("Different fields:");
             LOGGER.info(reflectedResult.toString());
 
         } catch (ClassNotFoundException e) {
