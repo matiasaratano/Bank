@@ -22,7 +22,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-public class Bank implements IPrintBasicOperations {
+public class Bank extends Thread implements IPrintBasicOperations {
 
     private String name;
     private Address address;
@@ -306,4 +306,8 @@ public class Bank implements IPrintBasicOperations {
         System.out.println(firstName);
     }
 
+    @Override
+    public void run() {
+
+    }
 }

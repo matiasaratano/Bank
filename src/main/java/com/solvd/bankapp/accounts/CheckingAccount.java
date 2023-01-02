@@ -11,7 +11,7 @@ import com.solvd.bankapp.persons.Client;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class CheckingAccount extends Account implements IDeposit, IWithdrawal, ITransfer {
+public class CheckingAccount extends Account implements IDeposit, IWithdrawal, ITransfer, Runnable {
 
     private static final AccountType accType = AccountType.CHECKING;
     private static final Logger LOGGER = LogManager.getLogger(Runner.class.getName());
@@ -62,7 +62,7 @@ public class CheckingAccount extends Account implements IDeposit, IWithdrawal, I
         }
 
     }
-    
+
     @Override
     public String getSummary() {
         return "ID: " + getID() + ", " + "Phone: " + getPhoneNumber() + ", " + getClient().getFullName() + ", " + "Balance: " + getBalance() + ", Account Type: " + accType;
@@ -72,5 +72,10 @@ public class CheckingAccount extends Account implements IDeposit, IWithdrawal, I
     public String toString() {
         return "Name: " + getFirstName() + "\n" + "Last name: " + getLastName() + "\n" + "Balance: " + getBalance()
                 + "\n" + "ID: " + getID();
+    }
+
+    @Override
+    public void run() {
+
     }
 }

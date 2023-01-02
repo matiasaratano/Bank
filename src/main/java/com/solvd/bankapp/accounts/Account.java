@@ -49,7 +49,7 @@ public abstract class Account implements IDeposit, IWithdrawal, ITransfer {
     }
 
     public abstract String getSummary();
-    
+
     public Boolean performOperation(Double amount, String type) {
         if (type.equals("withdraw")) {
             if (amount > this.balance) {
