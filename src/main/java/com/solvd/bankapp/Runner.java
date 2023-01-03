@@ -10,6 +10,7 @@ import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
 import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.persons.Client;
+import com.solvd.connection.CustomConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -122,7 +123,7 @@ public class Runner {
                                 LOGGER.info(account.getSummary());
                             }
                             if (filteredAccounts.size() == 0) {
-                                LOGGER.info("Cero accounts in the selected country");
+                                LOGGER.info("Zero accounts in the selected country");
                             }
                         }
                         break;
@@ -144,7 +145,7 @@ public class Runner {
         }
         scanner.close();
 
-
+        CustomConnectionPool pool = new CustomConnectionPool(5);
     }
 
     private static Bank initBank() throws IncorrectDetailException {
