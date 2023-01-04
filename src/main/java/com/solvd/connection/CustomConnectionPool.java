@@ -12,12 +12,12 @@ public class CustomConnectionPool {
         }
     }
 
-    public Connection getConnection() {
+    public Connection getConnection() throws InterruptedException {
         while (pool.isEmpty()) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
-                // Do nothing
+                throw new InterruptedException("Error");
             }
         }
         return pool.poll();

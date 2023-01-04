@@ -10,6 +10,7 @@ import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
 import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.persons.Client;
+import com.solvd.connection.Connection;
 import com.solvd.connection.CustomConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class Runner {
@@ -146,7 +149,47 @@ public class Runner {
         scanner.close();
 
         CustomConnectionPool pool = new CustomConnectionPool(5);
+        // Create a thread pool with 5 threads
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        // Create a Runnable task
+        Runnable task1 = new Runnable() {
+            public void run() {
+                Connection connection = null;
+                try {
+                    connection = pool.getConnection();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                // Use the connection
+                pool.releaseConnection(connection);
+            }
+        };
+
+        // Create a Thread
+        Thread thread1 = new Thread(new Runnable() {
+            public void run() {
+                Connection connection = null;
+                try {
+                    connection = pool.getConnection();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                // Use the connection
+                pool.releaseConnection(connection);
+            }
+        });
+
+        // Submit the tasks to the thread pool
+        executor.submit(task1);
+        executor.submit(task1);
+
+        // Start the Thread
+        thread1.start();
+
+        // Shut down the thread pool
+        executor.shutdown();
     }
+    
 
     private static Bank initBank() throws IncorrectDetailException {
 

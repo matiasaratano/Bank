@@ -76,6 +76,6 @@ public class CheckingAccount extends Account implements IDeposit, IWithdrawal, I
 
     @Override
     public void run() {
-
+        
     }
 }

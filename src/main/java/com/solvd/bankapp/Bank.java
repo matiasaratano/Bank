@@ -306,8 +306,4 @@ public class Bank extends Thread implements IPrintBasicOperations {
         System.out.println(firstName);
     }
 
-    @Override
-    public void run() {
-
-    }
 }
