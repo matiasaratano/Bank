@@ -29,7 +29,8 @@ public class CustomConnectionPool {
 
     private Connection createConnection() {
         // Create a new connection and return it
-        return null;
+        Connection con = new Connection("1", "1", "1");
+        return con;
     }
 
 }
