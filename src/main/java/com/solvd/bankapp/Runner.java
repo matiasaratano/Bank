@@ -2,6 +2,7 @@ package com.solvd.bankapp;
 
 
 import com.solvd.bankapp.accounts.Account;
+import com.solvd.bankapp.accounts.CheckingAccount;
 import com.solvd.bankapp.adress.Address;
 import com.solvd.bankapp.adress.Country;
 import com.solvd.bankapp.adress.Province;
@@ -147,49 +148,8 @@ public class Runner {
             }
         }
         scanner.close();
-
-        CustomConnectionPool pool = new CustomConnectionPool(5);
-        // Create a thread pool with 5 threads
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        // Create a Runnable task
-        Runnable task1 = new Runnable() {
-            public void run() {
-                Connection connection = null;
-                try {
-                    connection = pool.getConnection();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                // Use the connection
-                pool.releaseConnection(connection);
-            }
-        };
-
-        // Create a Thread
-        Thread thread1 = new Thread(new Runnable() {
-            public void run() {
-                Connection connection = null;
-                try {
-                    connection = pool.getConnection();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                // Use the connection
-                pool.releaseConnection(connection);
-            }
-        });
-
-        // Submit the tasks to the thread pool
-        executor.submit(task1);
-        executor.submit(task1);
-
-        // Start the Thread
-        thread1.start();
-
-        // Shut down the thread pool
-        executor.shutdown();
     }
-    
+
 
     private static Bank initBank() throws IncorrectDetailException {
 
@@ -217,5 +177,50 @@ public class Runner {
         bank.lookupAccount(4, "1234567891").setBalance(10000);
         return bank;
 
+    }
+
+    public void connectionPoolTask() {
+        CustomConnectionPool pool = new CustomConnectionPool(5);
+        // Create a thread pool with 5 threads
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+        // Create a Runnable task
+        //Runnable task1 = new Runnable()
+        CheckingAccount task1 = new CheckingAccount(new Client("Robert", "Hill", "1234567899")) {
+            public void run() {
+                Connection connection = null;
+                try {
+                    connection = pool.getConnection();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Error");
+                }
+                // Use the connection
+                pool.releaseConnection(connection);
+            }
+        };
+
+        // Create a Thread
+        //Thread thread1 = new Thread(new Runnable() {
+        Bank thread1 = new Bank("bank1", new Address("San Francisco") {
+            public void run() {
+                Connection connection = null;
+                try {
+                    connection = pool.getConnection();
+                } catch (InterruptedException e) {
+                    throw new RuntimeException("Error");
+                }
+                // Use the connection
+                pool.releaseConnection(connection);
+            }
+        });
+
+        // Submit the tasks to the thread pool
+        executor.submit(task1);
+        executor.submit(task1);
+
+        // Start the Thread
+        thread1.start();
+
+        // Shut down the thread pool
+        executor.shutdown();
     }
 }

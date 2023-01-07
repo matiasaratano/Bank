@@ -13,10 +13,10 @@ public class Connection {
     }
 
     public void connect() {
-        // Connect to the database using the url, username, and password
+        //Connect to the database using the url, username, and password
     }
 
     public void close() {
-        // Close the connection
+        //Close the connection
     }
 }

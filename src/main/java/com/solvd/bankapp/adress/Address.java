@@ -11,6 +11,11 @@ public class Address {
     private String streetAddress;
     private String zipCode;
 
+    //Constructor to try ConnectionPool method
+    public Address(String town) {
+        this.town = town;
+    }
+
     public Address(Country country, Province province, String town, String streetAddress, String zipCode) {
         this.country = country;
         this.province = province;
