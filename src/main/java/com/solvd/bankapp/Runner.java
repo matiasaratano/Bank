@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -31,7 +33,7 @@ public class Runner {
 
         Scanner scanner = new Scanner(System.in);
         Bank bank = initBank();
-
+        connectionPoolTask();
         boolean exitRequested = false;
         while (!exitRequested) {
             try {
@@ -179,7 +181,7 @@ public class Runner {
 
     }
 
-    public void connectionPoolTask() {
+    public static void connectionPoolTask() {
         CustomConnectionPool pool = new CustomConnectionPool(5);
         // Create a thread pool with 5 threads
         ExecutorService executor = Executors.newFixedThreadPool(5);
@@ -187,14 +189,28 @@ public class Runner {
         //Runnable task1 = new Runnable()
         CheckingAccount task1 = new CheckingAccount(new Client("Robert", "Hill", "1234567899")) {
             public void run() {
+
+                // Get a connection from the pool asynchronously using CompletableFuture
+                CompletableFuture<Connection> future = CompletableFuture.supplyAsync(() -> {
+                    try {
+                        return pool.getConnection();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+                // Use the connection
                 Connection connection = null;
                 try {
-                    connection = pool.getConnection();
+                    connection = future.get();
                 } catch (InterruptedException e) {
-                    throw new RuntimeException("Error");
+                    throw new RuntimeException(e);
+                } catch (ExecutionException e) {
+                    throw new RuntimeException(e);
                 }
-                // Use the connection
+
+                // Release the connection back to the pool
                 pool.releaseConnection(connection);
+
             }
         };
 
