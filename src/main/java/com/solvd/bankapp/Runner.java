@@ -197,12 +197,10 @@ public class Runner {
                     }
                 });
                 // Use the connection
-                Connection connection = null;
+                Connection connection;
                 try {
                     connection = future.get();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                } catch (ExecutionException e) {
+                } catch (InterruptedException | ExecutionException e) {
                     throw new RuntimeException(e);
                 }
 
