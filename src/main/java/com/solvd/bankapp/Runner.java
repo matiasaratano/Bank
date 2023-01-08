@@ -124,7 +124,7 @@ public class Runner {
                         }
                         Country finalCountry = country;
                         if (country != null) {
-                            List<Account> filteredAccounts = bank.filterAccountsByAdress(account -> account.getClient().getAddress().getCountry().equals(finalCountry));
+                            List<Account> filteredAccounts = bank.filterAccountsByAddress(account -> account.getClient().getAddress().getCountry().equals(finalCountry));
                             for (Account account : filteredAccounts) {
                                 LOGGER.info(account.getSummary());
                             }
@@ -183,14 +183,11 @@ public class Runner {
 
     public static void connectionPoolTask() {
         CustomConnectionPool pool = new CustomConnectionPool(5);
-        // Create a thread pool with 5 threads
         ExecutorService executor = Executors.newFixedThreadPool(5);
-        // Create a Runnable task
-        //Runnable task1 = new Runnable()
-        CheckingAccount task1 = new CheckingAccount(new Client("Robert", "Hill", "1234567899")) {
+        //Runnable task
+        Runnable task1 = new CheckingAccount(new Client("Robert", "Hill", "1234567899")) {
             public void run() {
-
-                // Get a connection from the pool asynchronously using CompletableFuture
+                // Get a connection from the pool asynchronously
                 CompletableFuture<Connection> future = CompletableFuture.supplyAsync(() -> {
                     try {
                         return pool.getConnection();
@@ -214,18 +211,26 @@ public class Runner {
             }
         };
 
-        // Create a Thread
-        //Thread thread1 = new Thread(new Runnable() {
-        Bank thread1 = new Bank("bank1", new Address("San Francisco") {
-            public void run() {
-                Connection connection = null;
-                try {
-                    connection = pool.getConnection();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException("Error");
-                }
-                // Use the connection
-                pool.releaseConnection(connection);
+        //Thread
+        Thread thread1 = new Bank("bank1", new Address("San Francisco") {
+            public void run() throws ExecutionException, InterruptedException {
+
+                // Get a connection from the pool asynchronously
+                CompletableFuture<Connection> future = CompletableFuture.supplyAsync(() -> {
+                    try {
+                        return pool.getConnection();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                });
+
+                // Use the connection and release it back to the pool
+                future.thenApply(connection -> {
+                    // Use the connection
+                    return connection;
+                }).thenAccept(connection -> {
+                    pool.releaseConnection(connection);
+                }).get();
             }
         });
 

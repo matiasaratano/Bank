@@ -20,6 +20,7 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class Bank extends Thread implements IPrintBasicOperations {
@@ -213,7 +214,6 @@ public class Bank extends Thread implements IPrintBasicOperations {
 
     public boolean isApproved(CreditSummary creditSummary, long creditAmount) {
         boolean isApproved = false;
-
         if (creditAmount == 0) {
             LOGGER.info("Exit");
         } else if (!creditSummary.isDefaulter() && !creditSummary.hasCredit() && creditSummary.getSalary() > 0) {
@@ -265,7 +265,7 @@ public class Bank extends Thread implements IPrintBasicOperations {
         }
     }
 
-    public List<Account> filterAccountsByAdress(BankAccountPredicate<Account> predicate) {
+    public List<Account> filterAccountsByAddress(BankAccountPredicate<Account> predicate) {
         List<Account> filteredAccounts = new ArrayList<>();
         for (Account account : this.accounts) {
             if (predicate.test(account)) {
@@ -292,18 +292,13 @@ public class Bank extends Thread implements IPrintBasicOperations {
     }
 
     public void streamTest() {
-        // Create a stream of accounts from the list
         Stream<Account> accountStream = accounts.stream();
-        System.out.println(accountStream);
-        // Use a non-terminal operation to filter the stream to only include accounts with a balance greater than 1000
+        //non-terminal operation to filter the stream to only include accounts with a balance greater than 1000
         Stream<Account> filteredAccountStream = accountStream.filter(a -> a.getBalance() > 1000);
-        System.out.println(filteredAccountStream);
-        // Use a non-terminal operation to transform the stream of accounts into a stream of account holder names
+        //non-terminal operation to transform the stream of accounts into a stream of account holder names
         Stream<String> namesStream = filteredAccountStream.map(a -> a.getLastName());
-        System.out.println(namesStream);
-        // Use a terminal operation to find the first account holder name in the stream
-        String firstName = String.valueOf(namesStream.findFirst());
-        System.out.println(firstName);
+        // Use a terminal operation to collect the stream into a list and print the list
+        List<String> namesList = namesStream.collect(Collectors.toList());
+        System.out.println(namesList);
     }
-
 }
