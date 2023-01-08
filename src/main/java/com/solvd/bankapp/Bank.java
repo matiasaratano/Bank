@@ -60,10 +60,9 @@ public class Bank extends Thread implements IPrintBasicOperations {
     }
 
     public void listAccounts() {
-        for (Account account : accounts) {
-            LOGGER.info(account.getSummary());
-
-        }
+        Stream<Account> accountStream = accounts.stream();
+        Stream<String> summaryStream = accountStream.map(a -> a.getSummary());
+        summaryStream.forEach(s -> System.out.println(s));
     }
 
     public void registerCheckingAccount(Client client) {
@@ -235,11 +234,9 @@ public class Bank extends Thread implements IPrintBasicOperations {
     @Override
     public void IPrintBasicOperations() {
         HashMap<String, String> map = new HashMap<>();
-
         map.put("Deposit", "A deposit is when you add money to your account.");
         map.put("Withdrawal", "A withdrawal is when you take money out of your account.");
         map.put("Transfer", "A transfer is when you move money from one account to another.");
-
         LOGGER.info("Basic bank operations: ");
         for (String key : map.keySet()) {
             String value = map.get(key);
@@ -295,9 +292,9 @@ public class Bank extends Thread implements IPrintBasicOperations {
         Stream<Account> accountStream = accounts.stream();
         //non-terminal operation to filter the stream to only include accounts with a balance greater than 1000
         Stream<Account> filteredAccountStream = accountStream.filter(a -> a.getBalance() > 1000);
-        //non-terminal operation to transform the stream of accounts into a stream of account holder names
+        //non-terminal operation to transform the stream of accounts into a stream of account holder last name
         Stream<String> namesStream = filteredAccountStream.map(a -> a.getLastName());
-        // Use a terminal operation to collect the stream into a list and print the list
+        //terminal operation to collect the stream into a list and print the list
         List<String> namesList = namesStream.collect(Collectors.toList());
         System.out.println(namesList);
     }

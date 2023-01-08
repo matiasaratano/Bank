@@ -24,6 +24,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Stream;
 
 
 public class Runner {
@@ -62,8 +63,8 @@ public class Runner {
                         bank.IPrintBasicOperations();
                         break;
                     case 5:
-                        // Lambda function to filter the accounts by balance (bigger than 150)
-                        ArrayList<Account> highBalanceAccounts = bank.filterAccounts(a -> a.getBalance() > 150.0);
+                        // Lambda function to filter the accounts by balance (bigger than 1000)
+                        ArrayList<Account> highBalanceAccounts = bank.filterAccounts(a -> a.getBalance() > 1000.0);
                         for (Account account : highBalanceAccounts) {
                             LOGGER.info(account.getSummary());
                         }
@@ -95,7 +96,6 @@ public class Runner {
                         }
                         break;
                     case 7:
-                        // Lambda function to filter Accounts by address
                         Country country = null;
                         Menu.countriesMenu();
                         int choices = Integer.parseInt(scanner.next());
@@ -124,10 +124,11 @@ public class Runner {
                         }
                         Country finalCountry = country;
                         if (country != null) {
+                            // Lambda function to filter Accounts by address
                             List<Account> filteredAccounts = bank.filterAccountsByAddress(account -> account.getClient().getAddress().getCountry().equals(finalCountry));
-                            for (Account account : filteredAccounts) {
-                                LOGGER.info(account.getSummary());
-                            }
+                            Stream<Account> accountStream = filteredAccounts.stream();
+                            Stream<String> summaryStream = accountStream.map(a -> a.getSummary());
+                            summaryStream.forEach(s -> System.out.println(s));
                             if (filteredAccounts.size() == 0) {
                                 LOGGER.info("Zero accounts in the selected country");
                             }
