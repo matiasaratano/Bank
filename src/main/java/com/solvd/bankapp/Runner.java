@@ -127,7 +127,7 @@ public class Runner {
                             // Lambda function to filter Accounts by address
                             List<Account> filteredAccounts = bank.filterAccountsByAddress(account -> account.getClient().getAddress().getCountry().equals(finalCountry));
                             Stream<Account> accountStream = filteredAccounts.stream();
-                            Stream<String> summaryStream = accountStream.map(a -> a.getSummary());
+                            Stream<String> summaryStream = accountStream.map(Account::getSummary);
                             summaryStream.forEach(s -> System.out.println(s));
                             if (filteredAccounts.size() == 0) {
                                 LOGGER.info("Zero accounts in the selected country");
