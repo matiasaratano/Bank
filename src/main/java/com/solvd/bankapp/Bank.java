@@ -298,4 +298,9 @@ public class Bank extends Thread implements IPrintBasicOperations {
         List<String> namesList = namesStream.collect(Collectors.toList());
         System.out.println(namesList);
     }
+
+    @Override
+    public void run() {
+        System.out.println("This code is running in a thread");
+    }
 }
