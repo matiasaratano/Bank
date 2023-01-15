@@ -13,7 +13,8 @@ public class Menu {
                 "\r" + "6.Update Account Balances" + "\n" +
                 "\r" + "7.Filter Accounts By Country" + "\n" +
                 "\r" + "8.Test Streams" + "\n" +
-                "\r" + "9.Exit");
+                "\r" + "9.Test Connections" + "\n" +
+                "\r" + "10.Exit");
     }
 
     public static void existAccountMenu() {

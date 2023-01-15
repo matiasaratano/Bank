@@ -1,36 +1,48 @@
 package com.solvd.connection;
 
-import java.util.concurrent.ConcurrentLinkedQueue;
+import java.util.concurrent.LinkedBlockingQueue;
+
 
 public class CustomConnectionPool {
-    private ConcurrentLinkedQueue<Connection> pool;
 
-    public CustomConnectionPool(int size) {
-        pool = new ConcurrentLinkedQueue<>();
-        for (int i = 0; i < size; i++) {
-            pool.add(createConnection());
+    public static final int MAX_CONNECTIONS = 5;
+    private LinkedBlockingQueue<Connection> connections;
+    private static CustomConnectionPool instance;
+
+    public CustomConnectionPool() {
+        connections = new LinkedBlockingQueue<>(MAX_CONNECTIONS);
+        //Initialize pool with 5 connections
+        for (int i = 0; i < MAX_CONNECTIONS; i++) {
+            Connection connection = new Connection("a", "a", "a");
+            this.connections.add(connection);
         }
     }
 
-    public Connection getConnection() throws InterruptedException {
-        while (pool.isEmpty()) {
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                throw new InterruptedException("Error");
-            }
+    public static CustomConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new CustomConnectionPool();
         }
-        return pool.poll();
+        return instance;
+    }
+
+    public Connection getConnection() {
+        synchronized (this) {
+            while (connections.size() == 0) {
+                try {
+                    System.out.println("no available connections for thread " + Thread.currentThread().getName().substring(Thread.currentThread().getName().lastIndexOf("-") + 1) + " will wait for next free one");
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            return connections.poll();
+        }
     }
 
     public void releaseConnection(Connection connection) {
-        pool.add(connection);
+        synchronized (this) {
+            connections.add(connection);
+            notifyAll();
+        }
     }
-
-    private Connection createConnection() {
-        //Create a new connection and return it
-        Connection con = new Connection("1", "1", "1");
-        return con;
-    }
-
 }

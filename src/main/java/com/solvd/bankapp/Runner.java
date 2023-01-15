@@ -2,7 +2,6 @@ package com.solvd.bankapp;
 
 
 import com.solvd.bankapp.accounts.Account;
-import com.solvd.bankapp.accounts.CheckingAccount;
 import com.solvd.bankapp.adress.Address;
 import com.solvd.bankapp.adress.Country;
 import com.solvd.bankapp.adress.Province;
@@ -11,14 +10,15 @@ import com.solvd.bankapp.card.CardType;
 import com.solvd.bankapp.card.Scheme;
 import com.solvd.bankapp.exceptions.*;
 import com.solvd.bankapp.persons.Client;
-import com.solvd.connection.Connection;
+import com.solvd.connection.ConnectionWorker;
 import com.solvd.connection.CustomConnectionPool;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.*;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.stream.Stream;
@@ -31,7 +31,6 @@ public class Runner {
 
         Scanner scanner = new Scanner(System.in);
         Bank bank = initBank();
-        connectionPoolTask();
         boolean exitRequested = false;
         while (!exitRequested) {
             try {
@@ -135,6 +134,9 @@ public class Runner {
                         bank.streamTest();
                         break;
                     case 9:
+                        connectionTask();
+                        break;
+                    case 10:
                         exitRequested = true;
                         break;
                     default:
@@ -176,68 +178,20 @@ public class Runner {
         bank.registerSavingsAccount(client4);
         bank.lookupAccount(4, "1234567891").setBalance(10000);
         return bank;
-
     }
 
-    public static void connectionPoolTask() {
-        CustomConnectionPool pool = new CustomConnectionPool(5);
-        ExecutorService executor = Executors.newFixedThreadPool(5);
-        //Runnable task
-        Runnable task1 = new CheckingAccount(new Client("Robert", "Hill", "1234567899")) {
-            public void run() {
-                // Get a connection from the pool asynchronously
-                CompletableFuture<Connection> future = CompletableFuture.supplyAsync(() -> {
-                    try {
-                        return pool.getConnection();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-                // Use the connection
-                Connection connection;
-                try {
-                    connection = future.get();
-                } catch (InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-
-                // Release the connection back to the pool
-                pool.releaseConnection(connection);
-
-            }
-        };
-
-        //Thread
-        Thread thread1 = new Bank("bank1", new Address("San Francisco") {
-            public void run() throws ExecutionException, InterruptedException {
-
-                // Get a connection from the pool asynchronously
-                CompletableFuture<Connection> future = CompletableFuture.supplyAsync(() -> {
-                    try {
-                        return pool.getConnection();
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
-
-                // Use the connection and release it back to the pool
-                future.thenApply(connection -> {
-                    // Use the connection
-                    return connection;
-                }).thenAccept(connection -> {
-                    pool.releaseConnection(connection);
-                }).get();
-            }
-        });
-
-        // Submit the tasks to the thread pool
-        executor.submit(task1);
-        executor.submit(task1);
-
-        // Start the Thread
-        thread1.start();
-
-        // Shut down the thread pool
+    public static void connectionTask() {
+        ExecutorService executor = Executors.newFixedThreadPool(7);
+        CustomConnectionPool pool = CustomConnectionPool.getInstance();
+        for (int i = 0; i < 7; i++) {
+            Runnable worker = new ConnectionWorker(pool);
+            executor.execute(worker);
+        }
         executor.shutdown();
+        while (!executor.isTerminated()) {
+            // wait for all threads to finish
+        }
+        LOGGER.info("Finished all threads");
     }
+
 }
